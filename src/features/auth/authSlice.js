@@ -4,8 +4,8 @@ import axios from 'axios';
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
 const API_URL = `${API_BASE_URL}/auth/`; // Backend API URL
 
-const user = JSON.parse(localStorage.getItem('user'));
-const token = JSON.parse(localStorage.getItem('token'));
+const user = JSON.parse(sessionStorage.getItem('user'));
+const token = JSON.parse(sessionStorage.getItem('token'));
 
 const initialState = {
   user: user ? user : null,
@@ -35,8 +35,8 @@ export const login = createAsyncThunk(
     try {
       const response = await axios.post(API_URL + 'login', userData);
       if (response.data.token) {
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        localStorage.setItem('token', JSON.stringify(response.data.token));
+        sessionStorage.setItem('user', JSON.stringify(response.data.user));
+        sessionStorage.setItem('token', JSON.stringify(response.data.token));
       }
       return response.data;
     } catch (error) {
@@ -47,8 +47,8 @@ export const login = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk('auth/logout', async () => {
-  localStorage.removeItem('user');
-  localStorage.removeItem('token');
+  sessionStorage.removeItem('user');
+  sessionStorage.removeItem('token');
 });
 
 export const authSlice = createSlice({
