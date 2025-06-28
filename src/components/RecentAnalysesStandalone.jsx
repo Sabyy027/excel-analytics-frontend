@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react';
+// frontend/src/components/RecentAnalysesStandalone.jsx
+
+import React, { useState, useEffect, useCallback } from 'react'; // ⭐ Added useCallback ⭐
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
-function RecentAnalyses({ onSelectAnalysis, refreshTrigger }) {
+// Renamed function to match filename for consistency
+function RecentAnalysesStandalone({ onSelectAnalysis, refreshTrigger }) {
   const [analyses, setAnalyses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const { user, token } = useSelector((state) => state.auth);
 
-  const fetchAnalyses = async () => {
+  // ⭐ Wrapped fetchAnalyses in useCallback to make it a stable function ⭐
+  const fetchAnalyses = useCallback(async () => {
     setLoading(true);
     setError(''); // Clear previous errors
     try {
@@ -36,17 +40,17 @@ function RecentAnalyses({ onSelectAnalysis, refreshTrigger }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]); // Dependencies for useCallback: fetchAnalyses depends on 'token'
 
   useEffect(() => {
     if (user && token) { // Only fetch if user is logged in and token is available
-      fetchAnalyses();
+      fetchAnalyses(); // This is now a stable function
     } else {
       setAnalyses([]); // Clear analyses if logged out
       setLoading(false);
       setError('Login to view analysis history.');
     }
-  }, [user, token, refreshTrigger]); // Added user to dependencies
+  }, [user, token, refreshTrigger, fetchAnalyses]); // ⭐ Added fetchAnalyses to useEffect dependencies ⭐
 
   // ⭐ Dark mode loading text ⭐
   if (loading) return <div className="p-4 text-center text-gray-600 dark:text-gray-300">Loading recent analyses...</div>;
@@ -92,4 +96,4 @@ function RecentAnalyses({ onSelectAnalysis, refreshTrigger }) {
   );
 }
 
-export default RecentAnalyses;
+export default RecentAnalysesStandalone; // ⭐ Ensure export matches function name ⭐
