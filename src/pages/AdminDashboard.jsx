@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; // For redirecting if not admin
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+
 /**
  * AdminDashboard component provides an interface for administrators
  * to manage users and all uploaded Excel data.
@@ -39,7 +41,7 @@ const AdminDashboard = () => {
     setLoadingUsers(true);
     setError(''); // Clear previous errors
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/users', config);
+      const res = await axios.get(`${API_BASE_URL}/admin/users`, config);
       setUsers(res.data);
       console.log('Admin Frontend: Fetched users:', res.data.length);
     } catch (err) {
@@ -57,7 +59,7 @@ const AdminDashboard = () => {
     setLoadingData(true);
     setError(''); // Clear previous errors
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/all-data', config);
+      const res = await axios.get(`${API_BASE_URL}/admin/all-data`, config);
       setAllExcelData(res.data);
       console.log('Admin Frontend: Fetched all Excel data:', res.data.length);
     } catch (err) {
@@ -89,7 +91,7 @@ const AdminDashboard = () => {
             return;
         }
         console.log('Admin Frontend: Deleting user:', userId);
-        const res = await axios.delete(`http://localhost:5000/api/admin/users/${userId}`, config);
+        const res = await axios.delete(`${API_BASE_URL}/admin/users/${userId}`, config);
         alert(res.data.message); // Show success message
         fetchUsers(); // Refresh user list after deletion
         fetchAllExcelData(); // Refresh all data list as user's data might be removed
@@ -108,7 +110,7 @@ const AdminDashboard = () => {
     if (window.confirm('Are you sure you want to delete this Excel data entry and all its associated analyses? This action is irreversible.')) {
       try {
         console.log('Admin Frontend: Deleting Excel data:', dataId);
-        const res = await axios.delete(`http://localhost:5000/api/admin/data/${dataId}`, config);
+        const res = await axios.delete(`${API_BASE_URL}/admin/data/${dataId}`, config);
         alert(res.data.message); // Show success message
         fetchAllExcelData(); // Refresh all data list after deletion
       } catch (err) {

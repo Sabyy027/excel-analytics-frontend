@@ -4,6 +4,8 @@ import React, { useState, useEffect, useCallback } from 'react'; // ⭐ Added us
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+
 // Renamed function to match filename for consistency
 function RecentAnalysesStandalone({ onSelectAnalysis, refreshTrigger }) {
   const [analyses, setAnalyses] = useState([]);
@@ -25,7 +27,7 @@ function RecentAnalysesStandalone({ onSelectAnalysis, refreshTrigger }) {
         headers: { Authorization: `Bearer ${token}` },
       };
       console.log('Frontend: Attempting to fetch analysis history...');
-      const res = await axios.get('http://localhost:5000/api/data/analysis-history', config);
+      const res = await axios.get(`${API_BASE_URL}/data/analysis-history`, config);
       console.log('Frontend: Received analysis history response:', res.data);
       // Optional debugging logs, good to keep during development:
       if (res.data[0]) {

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+
 function FileUpload({ onUploadSuccess }) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [message, setMessage] = useState('');
@@ -30,7 +32,7 @@ function FileUpload({ onUploadSuccess }) {
                     Authorization: `Bearer ${token}`,
                 },
             };
-            const res = await axios.post('http://localhost:5000/api/upload', formData, config);
+            const res = await axios.post(`${API_BASE_URL}/upload`, formData, config);
             setMessage(res.data.message);
             setSelectedFile(null);
             if (onUploadSuccess) {

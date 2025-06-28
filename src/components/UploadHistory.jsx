@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+
 function UploadHistory({ onSelectFile }) {
     const [history, setHistory] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -15,7 +17,7 @@ function UploadHistory({ onSelectFile }) {
             const config = {
                 headers: { Authorization: `Bearer ${token}` },
             };
-            const res = await axios.get('http://localhost:5000/api/data/history', config);
+            const res = await axios.get(`${API_BASE_URL}/data/history`, config);
             setHistory(res.data);
         } catch (err) {
             console.error('Error fetching upload history:', err.response?.data || err.message);
@@ -36,7 +38,7 @@ function UploadHistory({ onSelectFile }) {
             const config = {
                 headers: { Authorization: `Bearer ${token}` },
             };
-            const res = await axios.get(`http://localhost:5000/api/data/${dataId}`, config);
+            const res = await axios.get(`${API_BASE_URL}/data/${dataId}`, config);
             if (onSelectFile) {
                 onSelectFile(res.data);
             }

@@ -19,6 +19,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import ThreeDChart from './ThreeDChart'; // Import 3D Chart component
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+
 // Register Chart.js components and elements (CRUCIAL for Chart.js to work)
 ChartJS.register(
   CategoryScale,
@@ -368,7 +370,7 @@ function ChartGenerator({ excelData, initialChartConfig, onSaveAnalysisSuccess }
               zAxis: is3DChart ? zAxis : undefined, // Include Z-axis for 3D charts
           };
 
-          const res = await axios.post('http://localhost:5000/api/data/save-analysis', payload, config);
+          const res = await axios.post(`${API_BASE_URL}/data/save-analysis`, payload, config);
           alert(res.data.message);
 
           if (onSaveAnalysisSuccess) {
