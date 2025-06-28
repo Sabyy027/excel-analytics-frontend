@@ -53,23 +53,33 @@ function App() {
       {/* Navigation Bar */}
       <nav className="w-full bg-white/40 backdrop-blur-xl border-b border-white/40 shadow-md dark:bg-gray-900/60 dark:border-gray-700 dark:shadow-lg">
         <div className="flex items-center justify-between py-3 px-4 md:px-12">
-          <Link to="/" className="text-2xl font-semibold tracking-tight text-gray-900 font-sans select-none hover:text-blue-700 transition dark:text-white dark:hover:text-blue-400">Excel Analytics Platform</Link>
-          <div className="flex items-center gap-6">
+          {/* Logo/Brand - Responsive text size */}
+          <Link to="/" className="text-lg md:text-2xl font-semibold tracking-tight text-gray-900 font-sans select-none hover:text-blue-700 transition dark:text-white dark:hover:text-blue-400">
+            <span className="hidden sm:inline">Excel Analytics Platform</span>
+            <span className="sm:hidden">Excel Analytics</span>
+          </Link>
+          
+          {/* Mobile menu container */}
+          <div className="flex items-center gap-2 md:gap-6">
             {user ? (
               <>
-                <span className="text-base font-normal text-gray-500 tracking-wide select-none dark:text-gray-400">Welcome, {user.username}!</span>
+                {/* Welcome message - hidden on very small screens */}
+                <span className="hidden sm:block text-sm md:text-base font-normal text-gray-500 tracking-wide select-none dark:text-gray-400">
+                  Welcome, {user.username}!
+                </span>
+                
+                {/* Admin button - responsive sizing */}
                 {user.isAdmin && (
-                  /* ⭐ Advanced Animated Admin Panel Button ⭐ */
                   <Link 
                     to="/admin" 
-                    className="group relative inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-700 hover:via-indigo-700 hover:to-purple-800 dark:from-purple-500 dark:via-indigo-500 dark:to-purple-600 dark:hover:from-purple-600 dark:hover:via-indigo-600 dark:hover:to-purple-700 text-white rounded-full font-medium text-sm shadow-lg hover:shadow-xl transition-all duration-300 select-none overflow-hidden border border-purple-400/30 dark:border-purple-300/30"
+                    className="group relative inline-flex items-center gap-1 md:gap-2 px-3 md:px-5 py-2 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-700 hover:via-indigo-700 hover:to-purple-800 dark:from-purple-500 dark:via-indigo-500 dark:to-purple-600 dark:hover:from-purple-600 dark:hover:via-indigo-600 dark:hover:to-purple-700 text-white rounded-full font-medium text-xs md:text-sm shadow-lg hover:shadow-xl transition-all duration-300 select-none overflow-hidden border border-purple-400/30 dark:border-purple-300/30"
                   >
                     {/* ⭐ Animated background overlay ⭐ */}
                     <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-purple-300/10 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     
                     {/* ⭐ Admin crown icon with animation ⭐ */}
                     <svg 
-                      className="w-4 h-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6" 
+                      className="w-3 h-3 md:w-4 md:h-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6" 
                       fill="none" 
                       stroke="currentColor" 
                       viewBox="0 0 24 24" 
@@ -83,26 +93,30 @@ function App() {
                       />
                     </svg>
                     
-                    {/* ⭐ Text with glow effect ⭐ */}
-                    <span className="relative z-10 group-hover:text-purple-100 transition-colors duration-300 font-semibold tracking-wide">
+                    {/* ⭐ Text with glow effect - hidden on very small screens ⭐ */}
+                    <span className="hidden md:inline relative z-10 group-hover:text-purple-100 transition-colors duration-300 font-semibold tracking-wide">
                       Admin Panel
+                    </span>
+                    <span className="md:hidden relative z-10 group-hover:text-purple-100 transition-colors duration-300 font-semibold">
+                      Admin
                     </span>
                     
                     {/* ⭐ Ripple effect on click ⭐ */}
                     <div className="absolute inset-0 rounded-full bg-white/20 opacity-0 group-active:opacity-100 group-active:scale-95 transition-all duration-150"></div>
                   </Link>
                 )}
-                {/* ⭐ Advanced Animated Logout Button ⭐ */}
+                
+                {/* ⭐ Advanced Animated Logout Button - responsive sizing ⭐ */}
                 <button 
                   onClick={onLogout} 
-                  className="group relative inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 dark:from-slate-500 dark:to-slate-600 dark:hover:from-slate-600 dark:hover:to-slate-700 text-white rounded-xl font-medium text-base shadow-lg hover:shadow-xl transition-all duration-300 select-none overflow-hidden"
+                  className="group relative inline-flex items-center gap-1 md:gap-2 px-3 md:px-6 py-2 md:py-2.5 bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 dark:from-slate-500 dark:to-slate-600 dark:hover:from-slate-600 dark:hover:to-slate-700 text-white rounded-xl font-medium text-xs md:text-base shadow-lg hover:shadow-xl transition-all duration-300 select-none overflow-hidden"
                 >
                   {/* ⭐ Animated background overlay ⭐ */}
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   
                   {/* ⭐ Logout icon with animation ⭐ */}
                   <svg 
-                    className="w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" 
+                    className="w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24" 
@@ -116,8 +130,8 @@ function App() {
                     />
                   </svg>
                   
-                  {/* ⭐ Text with glow effect ⭐ */}
-                  <span className="relative z-10 group-hover:text-blue-100 transition-colors duration-300">
+                  {/* ⭐ Text with glow effect - hidden on very small screens ⭐ */}
+                  <span className="hidden sm:inline relative z-10 group-hover:text-blue-100 transition-colors duration-300">
                     Logout
                   </span>
                   
@@ -130,10 +144,11 @@ function App() {
                 {/* Login and Register buttons removed - users will be redirected to login page */}
               </>
             )}
+            
             {/* ⭐ Sleek Glossy Dark Mode Toggle Button ⭐ */}
             <button
               onClick={toggleDarkMode}
-              className="group relative p-3 bg-gradient-to-br from-gray-100 via-white to-gray-200 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 dark:border-gray-600/50 overflow-hidden"
+              className="group relative p-2 md:p-3 bg-gradient-to-br from-gray-100 via-white to-gray-200 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 dark:border-gray-600/50 overflow-hidden"
               aria-label="Toggle Dark Mode"
             >
               {/* ⭐ Glossy overlay effect ⭐ */}
@@ -147,7 +162,7 @@ function App() {
                 {isDarkMode ? (
                   // ⭐ Sun icon for switching to light mode ⭐
                   <svg 
-                    className="w-5 h-5 text-yellow-500 drop-shadow-lg filter group-hover:drop-shadow-xl transition-all duration-300" 
+                    className="w-4 h-4 md:w-5 md:h-5 text-yellow-500 drop-shadow-lg filter group-hover:drop-shadow-xl transition-all duration-300" 
                     fill="currentColor" 
                     viewBox="0 0 24 24" 
                     xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +172,7 @@ function App() {
                 ) : (
                   // ⭐ Moon icon for switching to dark mode ⭐
                   <svg 
-                    className="w-5 h-5 text-blue-500 drop-shadow-lg filter group-hover:drop-shadow-xl transition-all duration-300" 
+                    className="w-4 h-4 md:w-5 md:h-5 text-blue-500 drop-shadow-lg filter group-hover:drop-shadow-xl transition-all duration-300" 
                     fill="currentColor" 
                     viewBox="0 0 24 24" 
                     xmlns="http://www.w3.org/2000/svg"
@@ -174,8 +189,8 @@ function App() {
         </div>
       </nav>
 
-      {/* Main content area */}
-      <main className="flex-1 px-4 md:px-12 py-6">
+      {/* Main content area - improved mobile padding */}
+      <main className="flex-1 px-4 md:px-12 py-4 md:py-6">
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -184,10 +199,10 @@ function App() {
         </Routes>
       </main>
 
-      {/* ⭐ Copyright Footer ⭐ */}
-      <footer className="py-4 px-4 md:px-12 border-t border-gray-200/50 dark:border-gray-700/50 bg-white/30 dark:bg-gray-900/30 backdrop-blur-sm">
+      {/* ⭐ Copyright Footer - responsive text ⭐ */}
+      <footer className="py-3 md:py-4 px-4 md:px-12 border-t border-gray-200/50 dark:border-gray-700/50 bg-white/30 dark:bg-gray-900/30 backdrop-blur-sm">
         <div className="text-center">
-          <span className="text-sm text-gray-600 dark:text-gray-400">
+          <span className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
             © 2025 Excel Analytics Platform. Website created by{" "}
             <span className="font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Sabeer Anwer Meeran

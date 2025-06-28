@@ -386,8 +386,9 @@ function ChartGenerator({ excelData, initialChartConfig, onSaveAnalysisSuccess }
 
   return (
     // ⭐ Dark Mode Background, Border, and Shadow for the main container ⭐
-    <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-      <div className={`grid grid-cols-1 md:grid-cols-${is3DChart ? '4' : '3'} gap-4 mb-6`}>
+    <div className="bg-white p-4 md:p-6 rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+      {/* Chart Controls - Mobile optimized grid */}
+      <div className={`grid grid-cols-1 ${is3DChart ? 'md:grid-cols-4' : 'md:grid-cols-3'} gap-3 md:gap-4 mb-4 md:mb-6`}>
         <div>
           {/* ⭐ Dark Mode Text for Labels ⭐ */}
           <label htmlFor="xAxis" className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-300">X-Axis</label>
@@ -396,7 +397,7 @@ function ChartGenerator({ excelData, initialChartConfig, onSaveAnalysisSuccess }
             value={xAxis}
             onChange={(e) => setXAxis(e.target.value)}
             // ⭐ Dark Mode Styles for Select input ⭐
-            className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400"
+            className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400 text-sm md:text-base"
           >
             <option value="">Select X-axis</option>
             {headers.map(header => (
@@ -412,7 +413,7 @@ function ChartGenerator({ excelData, initialChartConfig, onSaveAnalysisSuccess }
             value={yAxis}
             onChange={(e) => setYAxis(e.target.value)}
             // ⭐ Dark Mode Styles for Select input ⭐
-            className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400"
+            className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400 text-sm md:text-base"
           >
             <option value="">Select Y-axis</option>
             {headers.map(header => (
@@ -429,7 +430,7 @@ function ChartGenerator({ excelData, initialChartConfig, onSaveAnalysisSuccess }
               value={zAxis}
               onChange={(e) => setZAxis(e.target.value)}
               // ⭐ Dark Mode Styles for Select input ⭐
-              className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400"
+              className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400 text-sm md:text-base"
             >
               <option value="">Select Z-axis</option>
               {headers.map(header => (
@@ -446,7 +447,7 @@ function ChartGenerator({ excelData, initialChartConfig, onSaveAnalysisSuccess }
             value={chartType}
             onChange={(e) => setChartType(e.target.value)}
             // ⭐ Dark Mode Styles for Select input ⭐
-            className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-500 bg-white text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400"
+            className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-500 bg-white text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400 text-sm md:text-base"
           >
             <option value="bar">Bar Chart</option>
             <option value="line">Line Chart</option>
@@ -459,31 +460,31 @@ function ChartGenerator({ excelData, initialChartConfig, onSaveAnalysisSuccess }
         </div>
       </div>
 
-      {/* Chart Display Area */}
+      {/* Chart Display Area - Mobile optimized */}
       {/* ⭐ Dark Mode Background, Border, and Shadow for chart container ⭐ */}
-      <div className="chart-container relative h-96 w-full mb-6 p-4 border border-gray-200 rounded-md bg-gray-50 flex items-center justify-center dark:bg-gray-700 dark:border-gray-600">
+      <div className="chart-container relative h-64 md:h-96 w-full mb-4 md:mb-6 p-2 md:p-4 border border-gray-200 rounded-md bg-gray-50 flex items-center justify-center dark:bg-gray-700 dark:border-gray-600">
         {renderChart()}
       </div>
 
-      {/* Action Buttons */}
-      <div className="flex justify-center space-x-3 mb-6">
+      {/* Action Buttons - Mobile optimized */}
+      <div className="flex flex-col sm:flex-row justify-center gap-2 md:gap-3 mb-4 md:mb-6">
         <button
           onClick={() => handleDownloadChart('png')}
-          className="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-md shadow-sm transition duration-300 disabled:opacity-50"
+          className="bg-green-500 hover:bg-green-600 text-white px-4 md:px-5 py-2 rounded-md shadow-sm transition duration-300 disabled:opacity-50 text-sm md:text-base"
           disabled={(!chartData && !is3DChart) || error}
         >
           Download PNG
         </button>
         <button
           onClick={() => handleDownloadChart('pdf')}
-          className="bg-purple-500 hover:bg-purple-600 text-white px-5 py-2 rounded-md shadow-sm transition duration-300 disabled:opacity-50"
+          className="bg-purple-500 hover:bg-purple-600 text-white px-4 md:px-5 py-2 rounded-md shadow-sm transition duration-300 disabled:opacity-50 text-sm md:text-base"
           disabled={(!chartData && !is3DChart) || error}
         >
           Download PDF
         </button>
         <button
             onClick={handleSaveAnalysis}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-sm transition duration-300 disabled:opacity-50"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 md:px-5 py-2 rounded-md shadow-sm transition duration-300 disabled:opacity-50 text-sm md:text-base"
             disabled={(!chartData && !is3DChart) || error || savingAnalysis}
         >
             {savingAnalysis ? 'Saving...' : 'Save Analysis'}

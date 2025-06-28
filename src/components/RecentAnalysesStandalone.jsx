@@ -61,27 +61,27 @@ function RecentAnalysesStandalone({ onSelectAnalysis, refreshTrigger }) {
 
   return (
     // ⭐ Dark mode card background, border, shadow ⭐
-    <div className="p-6 border border-gray-200 rounded-lg shadow-md bg-white dark:bg-gray-800 dark:border-gray-700 dark:shadow-lg">
+    <div className="p-4 md:p-6 border border-gray-200 rounded-lg shadow-md bg-white dark:bg-gray-800 dark:border-gray-700 dark:shadow-lg">
       {/* ⭐ Dark mode heading text ⭐ */}
-      <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Recent Analyses</h2>
+      <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4 text-gray-800 dark:text-gray-100">Recent Analyses</h2>
       {analyses.length === 0 ? (
         // ⭐ Dark mode empty state text ⭐
-        <p className="text-gray-600 dark:text-gray-400">No saved analyses found. Generate a chart and save it!</p>
+        <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base">No saved analyses found. Generate a chart and save it!</p>
       ) : (
-        <ul className="space-y-3">
+        <ul className="space-y-2 md:space-y-3">
           {/* Using slice(-5) to show only the 5 most recent analyses, as in your previous code. */}
           {analyses.slice(-5).map((item) => (
             <li
               key={item._id}
               // ⭐ Dark mode list item background, border, hover states ⭐
-              className="bg-gray-50 p-3 rounded-md border border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center cursor-pointer hover:bg-gray-100 transition duration-200 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-600"
+              className="bg-gray-50 p-3 md:p-3 rounded-md border border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center cursor-pointer hover:bg-gray-100 transition duration-200 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-600"
               onClick={() => onSelectAnalysis(item)}
             >
-              <div>
+              <div className="w-full sm:w-auto">
                 {/* ⭐ Dark mode file name text ⭐ */}
-                <p className="font-medium text-blue-700 dark:text-blue-400">File: {item.excelDataId?.fileName || item.fileName || 'N/A'}</p>
+                <p className="font-medium text-blue-700 dark:text-blue-400 text-sm md:text-base break-words">File: {item.excelDataId?.fileName || item.fileName || 'N/A'}</p>
                 {/* ⭐ Dark mode chart details text ⭐ */}
-                <p className="text-sm text-gray-500 dark:text-gray-300">
+                <p className="text-xs md:text-sm text-gray-500 dark:text-gray-300">
                   Chart: {item.chartType}, X: {item.xAxis}, Y: {item.yAxis}
                   {item.zAxis && `, Z: ${item.zAxis}`} {/* Show Z-axis if present */}
                 </p>
@@ -89,7 +89,9 @@ function RecentAnalysesStandalone({ onSelectAnalysis, refreshTrigger }) {
                 <p className="text-xs text-gray-400 dark:text-gray-500">Analyzed: {new Date(item.analysisDate).toLocaleDateString()}</p>
               </div>
               {/* ⭐ Dark mode button text ⭐ */}
-              <button className="text-blue-500 hover:text-blue-700 text-sm mt-2 sm:mt-0 dark:text-blue-400 dark:hover:text-blue-300">Load Analysis</button>
+              <button className="text-blue-500 hover:text-blue-700 text-xs md:text-sm mt-2 sm:mt-0 dark:text-blue-400 dark:hover:text-blue-300 w-full sm:w-auto text-center sm:text-left">
+                Load Analysis
+              </button>
             </li>
           ))}
         </ul>
