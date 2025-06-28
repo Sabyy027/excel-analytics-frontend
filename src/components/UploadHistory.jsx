@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
@@ -8,7 +8,7 @@ function UploadHistory({ onSelectFile }) {
     const [error, setError] = useState('');
     const { token } = useSelector((state) => state.auth);
 
-    const fetchHistory = async () => {
+    const fetchHistory = useCallback(async () => {
         setLoading(true);
         setError('');
         try {
@@ -23,11 +23,11 @@ function UploadHistory({ onSelectFile }) {
         } finally {
             setLoading(false);
         }
-    };
+    }, [token]);
 
     useEffect(() => {
         fetchHistory();
-    }, [token]);
+    }, [fetchHistory]);
 
     const handleFileClick = async (dataId) => {
         setLoading(true);

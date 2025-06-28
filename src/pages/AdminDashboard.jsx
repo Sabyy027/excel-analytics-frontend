@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; // For redirecting if not admin
@@ -35,7 +35,7 @@ const AdminDashboard = () => {
   /**
    * Fetches all registered users from the backend.
    */
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     setLoadingUsers(true);
     setError(''); // Clear previous errors
     try {
@@ -48,12 +48,12 @@ const AdminDashboard = () => {
     } finally {
       setLoadingUsers(false);
     }
-  };
+  }, [token]);
 
   /**
    * Fetches all uploaded Excel data entries from the backend.
    */
-  const fetchAllExcelData = async () => {
+  const fetchAllExcelData = useCallback(async () => {
     setLoadingData(true);
     setError(''); // Clear previous errors
     try {
@@ -66,7 +66,7 @@ const AdminDashboard = () => {
     } finally {
       setLoadingData(false);
     }
-  };
+  }, [token]);
 
   // Effect to fetch data when component mounts or user/token changes (if user is admin)
   useEffect(() => {
@@ -74,7 +74,7 @@ const AdminDashboard = () => {
       fetchUsers();
       fetchAllExcelData();
     }
-  }, [user, token]); // Dependencies: runs when user or token changes
+  }, [user, token, fetchUsers, fetchAllExcelData]);
 
   /**
    * Handles the deletion of a user.

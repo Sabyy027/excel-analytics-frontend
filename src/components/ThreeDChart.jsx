@@ -266,7 +266,7 @@ function ThreeDChart({ chartType, data, xAxisKey, yAxisKey, zAxisKey }) { // Ren
       case '3dsurface':
         return (
           <Surface3D 
-            data={processedData} // Pass processed data if Surface3D handles it
+            data={processedChartData} // Pass processed data if Surface3D handles it
             xAxisKey={xAxisKey} 
             yAxisKey={yAxisKey} 
             zAxisKey={zAxisKey} 
