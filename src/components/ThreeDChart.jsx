@@ -147,11 +147,12 @@ function ThreeDChart({ chartType, data, xAxisKey, yAxisKey, zAxisKey }) { // Ren
   // Use `mountRef.current.clientWidth` directly in `Canvas` style if needed.
   // --- End: Fix unused vars and dependency warnings ---
 
+  // Get current palette based on dark mode
+  const currentPalette = isDarkModeActive() ? DARK_MODE_PALETTE : LIGHT_MODE_PALETTE;
+
   // Memoize processed data for performance and stability of dependencies
   const processedChartData = useMemo(() => {
     if (!data || data.length === 0 || !xAxisKey || !yAxisKey || !zAxisKey) return [];
-
-    const currentPalette = isDarkModeActive() ? DARK_MODE_PALETTE : LIGHT_MODE_PALETTE;
 
     switch (chartType) {
       case '3dbar':
